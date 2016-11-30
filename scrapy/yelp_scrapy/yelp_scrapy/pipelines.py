@@ -9,17 +9,21 @@ import json
 
 class ReviewPipeline(object):
 	def open_spider(self, spider):
-		self.file = open('yelp_scrapy/data/data.jl', 'w')
+		self.files = {}
 
 	def close_spider(self, spider):
-		self.file.close()
+		for file in self.files:
+			self.files[file].close()
 
 	def process_item(self, item, spider):
+		if not item['business'] in self.files:
+			self.files[ item['business'] ] = \
+				open('yelp_scrapy/data/%s.jl'%item['business'], 'a')
 		line = json.dumps([
 			item['user'],
 			item['rating'],
 			item['business'],
 			item['review']
 		]) + "\n"
-		self.file.write(line)
+		self.files[ item['business'] ].write(line)
 		return item

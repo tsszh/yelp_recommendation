@@ -1,7 +1,0 @@
-2016-11-30 04:34:22 [reviews] ERROR: Success https://www.yelp.com/biz/coffee-project-new-york-new-york
-
-2016-11-30 04:53:13 [reviews] ERROR: Something wrong with https://www.yelp.com/biz/coffee-project-new-york-new-york
-
-2016-11-30 04:54:14 [reviews] ERROR: Something wrong with https://www.yelp.com/biz/coffee-project-new-york-new-york
-
-2016-11-30 04:54:14 [reviews] ERROR: name 'Review' is not defined
