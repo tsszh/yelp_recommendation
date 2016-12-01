@@ -1,0 +1,5 @@
+In this piece of code, it fetches 40 business info from yelp in New York City AREA. 
+
+In order to get more data, can modify the for loop parameters. Like (0, 980, 20) to fetch 1000 businesses, etc. 
+
+It would write on a file named test.json.
