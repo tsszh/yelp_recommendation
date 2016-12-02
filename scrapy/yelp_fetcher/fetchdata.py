@@ -17,8 +17,8 @@ url="http://api.yelp.com/v2/search"
 
 lines = ['{"businesses": [']
 
-# Loop by incrementing the offset until it hits 1000 results returned
-for num in range (0,20,20):
+# Loop by incrementing the offset until it hits 100 results returned
+for num in range (0,80,20):
 
     url_params.update({'offset':num+1})
 
@@ -37,7 +37,7 @@ for num in range (0,20,20):
     oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, new_token)
     signed_url = oauth_request.to_url()
     
-    businesses = re.sub(r'^{\"region\":.+?\"businesses\":\s\[({.+?})\].+?$',r'\1,',requests.get(signed_url).text)  
+    businesses = re.sub(r'^{\"region\":.+?\"businesses\":\s\[({.+?})\].+?$',r'\1,',requests.get(signed_url).text)
     lines.append(businesses)
 
 # Remove the last line and checks if that contains a ',' at the end. It should have since every line is appended with a ',' in the loop above
@@ -52,7 +52,17 @@ else:
 
 lines.append("]}")
 
-# Write the results to a valid JSON file
-fo = open('test.json', 'w')
-fo.writelines(lines)
-fo.close()
+data = json.loads(''.join(lines))
+businesses = data['businesses']
+rows = []
+for b in businesses:
+    l = []
+    l.append(b['id'])
+    l.append(b['name'])
+    l.append(b['rating'])
+    l.append(b['categories'])
+    l.append(b['location']['coordinate'])
+    rows.append(l)
+
+for r in rows:
+    print r
