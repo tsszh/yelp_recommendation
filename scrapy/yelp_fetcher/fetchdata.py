@@ -7,62 +7,77 @@ import json
 import sys
 import time
 import re
+import os
 
 consumer_key = "nCMEN9VxOhmMvzywgv_xgQ"
 consumer_secret = "e_AO_k3kCxBtNicfGGN3wkFA-5M"
 token = "tvcX-bydNutCUOOeWUZThg42fhdXy2-R"
 token_secret ="M8aFixHy_789P5d0fjBJSoSKifM"
-url_params = {'location':'New+York+City', 'limit':'20', 'offset' : '0'}
 url="http://api.yelp.com/v2/search"
 
-lines = ['{"businesses": [']
+city_list = [
+    'New+York+City',
+    'Los+Angeles',
+    'Chicago',
+    'Houston',
+    'San+Francisco',
+    'Philadelphia',
+    'Phoenix',
+    'Dallas',
+    'Seattle',
+    'Boston',
+    'San+Diego',
+    'Washington',
+    'Las+Vegas',
+    'Pittsburgh',
+    'Madison'
+]
 
-# Loop by incrementing the offset until it hits 100 results returned
-for num in range (0,80,20):
+file_chunk_size = 1000
+for city in city_list:
+    filepath = "data/business.%s.jl" % city
+    if os.path.isfile(filepath): continue
+    url_params = {'location':city, 'limit':'20', 'offset' : '0'}
+    with open(filepath, 'a') as f:
+        # Loop by incrementing the offset until it hits 100 results returned
+        for num in range (0,file_chunk_size,20):
+            url_params.update({'offset':num})
 
-    url_params.update({'offset':num+1})
+            consumer = oauth2.Consumer(consumer_key, consumer_secret)
+            oauth_request = oauth2.Request(method="GET", url=url, parameters=url_params)
 
-    consumer = oauth2.Consumer(consumer_key, consumer_secret)
-    oauth_request = oauth2.Request(method="GET", url=url, parameters=url_params)
+            oauth_request.update(
+                {
+                    'oauth_nonce': oauth2.generate_nonce(),
+                    'oauth_timestamp': oauth2.generate_timestamp(),
+                    'oauth_token': token,
+                    'oauth_consumer_key': consumer_key
+                }
+            )
+            new_token = oauth2.Token(token, token_secret)
+            oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, new_token)
+            signed_url = oauth_request.to_url()
 
-    oauth_request.update(
-        {
-            'oauth_nonce': oauth2.generate_nonce(),
-            'oauth_timestamp': oauth2.generate_timestamp(),
-            'oauth_token': token,
-            'oauth_consumer_key': consumer_key
-        }
-    )
-    new_token = oauth2.Token(token, token_secret)
-    oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, new_token)
-    signed_url = oauth_request.to_url()
-    
-    businesses = re.sub(r'^{\"region\":.+?\"businesses\":\s\[({.+?})\].+?$',r'\1,',requests.get(signed_url).text)
-    lines.append(businesses)
+            res = json.loads(requests.get(signed_url).text)
+            try:
+                businesses = res['businesses']
+            except Exception as e:
+                f.write(json.dumps(res))
+                continue
+            for b in businesses:
+                try:
+                    l = []
+                    l.append(b['id'])
+                    l.append(b['name'])
+                    l.append(b['rating'])
+                    l.append(b['categories'])
+                    l.append(b['location']['coordinate'])
+                    l.append(b['review_count'])
+                    f.write(json.dumps(l))
+                    f.write('\n')
+                except Exception as e:
+                    continue
+            print num,
+        print "\nFinish File %s (%d)"%(city, file_chunk_size)
 
-# Remove the last line and checks if that contains a ',' at the end. It should have since every line is appended with a ',' in the loop above
-temp = lines[-1]
-del lines[-1]
-
-# If it does, remove the ',' and append the line back
-if temp[-1]==',':
-   lines.append(temp[:-1])
-else:
-   lines.append(temp)
-
-lines.append("]}")
-
-data = json.loads(''.join(lines))
-businesses = data['businesses']
-rows = []
-for b in businesses:
-    l = []
-    l.append(b['id'])
-    l.append(b['name'])
-    l.append(b['rating'])
-    l.append(b['categories'])
-    l.append(b['location']['coordinate'])
-    rows.append(l)
-
-for r in rows:
-    print r
+    f.close()

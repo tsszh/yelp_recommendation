@@ -4,4 +4,4 @@ In order to get more data, can modify the for loop parameters. Like (0, 980, 20)
 
 Use it:
 
-python fetchdata.py > xxx.jl
+python -u fetchdata.py
