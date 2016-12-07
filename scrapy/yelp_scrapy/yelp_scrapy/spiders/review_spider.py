@@ -4,17 +4,19 @@ import yelp_scrapy.log
 
 logger = logging.getLogger('my-logger')
 
+input_file = 'business.New+York+City'
+
 class ReviewSpider(scrapy.Spider):
     name = "reviews"
 
     def __init__(self, category=None, *args, **kwargs):
         super(ReviewSpider, self).__init__(*args, **kwargs)
-        self.REVIEW_LIMIT = 500
+        self.REVIEW_LIMIT = 1000
         self.countDict = {}
 
     def start_requests(self):
         urls = []
-        with open('yelp_scrapy/data/business.jl') as f:
+        with open('yelp_scrapy/data/%s.jl'%input_file) as f:
             for line in f:
                 r = json.loads(line)
                 urls.append("https://www.yelp.com/biz/%s"%r[0])
@@ -40,32 +42,36 @@ class ReviewSpider(scrapy.Spider):
         try:
             businessId = re.search('www.yelp.com/biz/([^/?]+)', response.url).group(1)
             filename = 'yelp_scrapy/data/%s.jl' % businessId
-            
+
+            uids = response.xpath("//div[contains(concat(' ', normalize-space(@class), ' '), ' review ')\
+             and @data-review-id]/@data-signup-object").re("user_id:(.*)")
 
             users = response.xpath("//div[contains(concat(' ', normalize-space(@class), ' '), ' review ')\
              and @data-review-id]/div/div[@class='review-sidebar-content']/descendant::a[@class='user-display-name']/text()").extract()
-            
+
             ratings = response.xpath("//div[contains(concat(' ', normalize-space(@class), ' '), ' review ')\
                 and @data-review-id]/div/div[@class='review-content']/descendant::div[contains(@class, 'i-star')]/@title").extract()
-            
+
             reviews = response.xpath("//div[contains(concat(' ', normalize-space(@class), ' '), ' review ')\
                 and @data-review-id]/div/div[@class='review-content']/p[1]").extract()
 
             next_page = response.xpath("//div[contains(concat(' ', normalize-space(@class), ' '), ' review-pager ')\
                 ]/descendant::a[contains(concat(' ', normalize-space(@class), ' '), ' next ')]/@href").extract_first()
 
-            if not check_equal_list([len(users), len(ratings), len(reviews)]):
+            if not check_equal_list([len(uids), len(users), len(ratings), len(reviews)]):
                 raise Exception("Length of users, ratings and reviews are not identical...")
 
             count = self.update_count(businessId, len(reviews))
             if count <= 0: next_page = None
 
             # Parse the item
-            for u, r, c in zip(users, ratings, reviews):
+            for id, u, r, c in zip(uids, users, ratings, reviews):
                 if count <= 0: break
                 count -= 1
                 item = Review()
-                item['user'] = u
+                item['filepath'] = input_file
+                item['userId'] = id
+                item['userName'] = u
                 item['rating'] = parse_rating(r)
                 item['business'] = businessId
                 item['review'] = parse_review_content(c)
