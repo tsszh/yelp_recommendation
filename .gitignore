@@ -2,3 +2,7 @@
 scrapy/yelp_scrapy/error_log.txt
 
 scrapy/yelp_scrapy/info_log.txt
+*.pyc
+*.pyc
+
+scrapy/yelp_scrapy/yelp_scrapy/data/*
