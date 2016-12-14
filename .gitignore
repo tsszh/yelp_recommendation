@@ -11,3 +11,8 @@ spark/derby.log
 
 spark/target/*
 spark/data/yelp_dataset_challenge_academic_dataset.tar
+
+*.pyc
+
+scrapy/yelp_scrapy/yelp_scrapy/data/*
+
