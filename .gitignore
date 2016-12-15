@@ -16,3 +16,5 @@ spark/data/yelp_dataset_challenge_academic_dataset.tar
 
 scrapy/yelp_scrapy/yelp_scrapy/data/*
 
+
+spark/data/yelp_dataset_challenge_academic_dataset/*

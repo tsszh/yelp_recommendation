@@ -1,0 +1,164 @@
+city = "Pittsburgh"
+
+Restaurants, 613
+Food, 81
+Pizza, 81
+Sandwiches, 71
+Bars, 70
+Nightlife, 70
+American (New), 60
+American (Traditional), 52
+Italian, 48
+Breakfast & Brunch, 42
+Cafes, 38
+Delis, 33
+Mediterranean, 30
+Chinese, 30
+Diners, 27
+Thai, 20
+Sushi Bars, 20
+Mexican, 20
+Coffee & Tea, 19
+Middle Eastern, 19
+Japanese, 18
+Vegan, 17
+Barbeque, 16
+Seafood, 15
+Vegetarian, 15
+Burgers, 15
+Pubs, 13
+Bakeries, 13
+Salad, 12
+Specialty Food, 12
+Hot Dogs, 12
+Greek, 11
+Turkish, 11
+Steakhouses, 10
+French, 10
+Indian, 9
+Latin American, 9
+Fast Food, 9
+Chicken Wings, 9
+Desserts, 8
+Cocktail Bars, 8
+Food Trucks, 7
+Grocery, 7
+Ethnic Food, 7
+Asian Fusion, 7
+Caribbean, 6
+Korean, 6
+Ice Cream & Frozen Yogurt, 6
+Gluten-Free, 6
+Tea Rooms, 5
+
+=================================================================
+=================================================================
+=================================================================
+city = "Las Vegas"
+
+Restaurants, 1845
+Food, 237
+Mexican, 237
+Nightlife, 197
+Bars, 189
+Sandwiches, 164
+American (New), 154
+American (Traditional), 154
+Japanese, 149
+Pizza, 142
+Italian, 121
+Breakfast & Brunch, 109
+Sushi Bars, 105
+Fast Food, 98
+Seafood, 93
+Steakhouses, 91
+Burgers, 85
+Chinese, 83
+Asian Fusion, 73
+Thai, 67
+Cafes, 60
+Mediterranean, 56
+Barbeque, 55
+Delis, 55
+Korean, 49
+Hawaiian, 46
+Desserts, 40
+Chicken Wings, 40
+French, 40
+Food Trucks, 34
+Vegan, 34
+Bakeries, 33
+Salad, 32
+Coffee & Tea, 32
+Sports Bars, 32
+Vegetarian, 31
+Juice Bars & Smoothies, 31
+Latin American, 30
+Vietnamese, 30
+Lounges, 29
+Hot Dogs, 27
+Wine Bars, 23
+Indian, 22
+Greek, 22
+Gluten-Free, 22
+Specialty Food, 21
+Middle Eastern, 21
+Filipino, 20
+Cocktail Bars, 19
+Pubs, 19
+
+=================================================================
+=================================================================
+=================================================================
+city = "Charlote"
+
+Restaurants, 689
+Sandwiches, 88
+Food, 82
+Nightlife, 72
+Bars, 69
+American (Traditional), 65
+American (New), 61
+Pizza, 59
+Fast Food, 50
+Breakfast & Brunch, 49
+Mexican, 49
+Burgers, 43
+Italian, 37
+Delis, 37
+Southern, 34
+Seafood, 29
+Japanese, 29
+Cafes, 27
+Latin American, 25
+Mediterranean, 23
+Vietnamese, 23
+Sushi Bars, 23
+Chicken Wings, 22
+Chinese, 22
+Barbeque, 20
+Greek, 20
+Specialty Food, 19
+Vegetarian, 18
+Salad, 18
+Caribbean, 16
+Asian Fusion, 16
+Wine Bars, 15
+Steakhouses, 14
+Soul Food, 13
+Diners, 10
+Coffee & Tea, 10
+French, 10
+Food Trucks, 10
+Pubs, 10
+Bakeries, 10
+Tex-Mex, 9
+Cajun/Creole, 8
+Gluten-Free, 8
+Peruvian, 8
+Bagels, 8
+Tapas/Small Plates, 7
+Middle Eastern, 7
+Lounges, 7
+Grocery, 7
+Spanish, 7
