@@ -4,7 +4,7 @@ import yelp_scrapy.log
 
 logger = logging.getLogger('my-logger')
 
-input_file = 'business.New+York+City'
+input_file = 'business.Boston'
 
 class ReviewSpider(scrapy.Spider):
     name = "reviews"

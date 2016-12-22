@@ -9,7 +9,8 @@ spark/metastore_db
 
 spark/derby.log
 
-spark/target/*
+spark/target/full
+spark/target/train
 spark/data/yelp_dataset_challenge_academic_dataset.tar
 
 *.pyc
@@ -18,3 +19,5 @@ scrapy/yelp_scrapy/yelp_scrapy/data/*
 
 
 spark/data/yelp_dataset_challenge_academic_dataset/*
+
+cpython-35.pyc
